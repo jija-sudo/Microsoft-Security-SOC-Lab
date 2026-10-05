@@ -41,7 +41,7 @@ investigation.
 
 I created the `lokoko-RG` resource group to organize the Azure resources used in my Microsoft Security lab.
 
-![Azure Resource Group](screenshots/01-azure-resource-group.png)
+![Azure Resource Group](screenshoots/01-azure-resource-group.png)
 
 The resource group provides a central location for managing the resources used in my lab environment.
 
@@ -49,7 +49,7 @@ The resource group provides a central location for managing the resources used i
 
 I configured Log Analytics workspaces to support log collection and analysis in my Microsoft Security lab.
 
-![Log Analytics Workspaces](screenshots/02-log-analytics-workspaces.png)
+![Log Analytics Workspaces](screenshoots/02-log-analytics-workspaces.png)
 
 Log Analytics provides the workspace where you can store and query security telemetry using KQL. Microsoft Sentinel uses a Log Analytics workspace to analyze security data for monitoring, detection, threat hunting, and investigation.
 
