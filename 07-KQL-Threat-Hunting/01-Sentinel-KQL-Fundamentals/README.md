@@ -200,3 +200,43 @@ However, I did not classify the event as a confirmed compromise at this stage be
 #### Next Question
 
 Did any of the targeted accounts successfully authenticate after the failed logon attempts?
+
+### Investigation 5: Checking for Successful Logons
+
+#### Security Question
+
+Did any of the accounts targeted during the failed authentication activity successfully log on to `SOC-FW-RDP`?
+
+#### KQL Query
+
+```kusto
+SecurityEvent
+| where Computer == "SOC-FW-RDP"
+| where EventID == 4624
+| project TimeGenerated, Account, LogonType, AuthenticationPackageName
+| sort by TimeGenerated asc
+```
+
+#### Findings
+
+The query returned 10 successful logon events during the same general time period.
+
+However, all of the successful events shown were associated with:
+
+`NT AUTHORITY\SYSTEM`
+
+The authentication package was `Negotiate`.
+
+![Successful Logons](screenshoots/07-successful-logons.png)
+
+#### Analyst Notes
+
+The successful logons did not belong to the user accounts that were heavily targeted during the failed authentication activity.
+
+At this stage, I did not find evidence that accounts such as `ADMINISTRATOR`, `ADMIN`, or `USER` successfully authenticated after the failed attempts.
+
+The `NT AUTHORITY\SYSTEM` account is a Windows system account, so these events should not be treated as proof that the suspected attacker gained access.
+
+#### Next Question
+
+Were there any successful logons for the specific accounts targeted during the failed authentication activity?
