@@ -61,7 +61,19 @@ I enabled Microsoft Sentinel on my Log Analytics workspace and used `lokoko-LAW`
 
 Microsoft Sentinel provides the SIEM and security operations capabilities for my lab. From Sentinel, I can work with data connectors, analytics rules, automation, watchlists, and other security monitoring features.
 
-This environment gives me a place to practice SOC tasks such as log analysis, KQL queries, threat hunting, detection, and incident investigation.
+This environment lets me practice SOC tasks such as log analysis, KQL queries, threat hunting, detection, and incident investigation.
+
+### 4. Verifying Security Event Sources
+
+I used KQL to identify which systems were generating Windows Security events in my Sentinel workspace.
+
+![Microsoft Sentinel Workspace](screenshoots/04-sentinel-securityevent-sources.png)
+
+The results showed security events from multiple training systems, including SOC-FW-RDP, SHIR-Hive, VictimPC2, and several Contoso systems.
+
+My Azure test VM did not appear in these results. Its endpoint telemetry is currently available through Microsoft Defender XDR Advanced Hunting rather than this Sentinel SecurityEvent dataset.
+
+This helped me understand that seeing data in Defender XDR does not automatically mean the same telemetry is available in the Sentinel Log Analytics workspace.
 
 ## What I Learned
 
