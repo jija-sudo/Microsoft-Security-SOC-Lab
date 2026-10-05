@@ -265,3 +265,11 @@ I did not identify a successful user authentication following the suspicious fai
 The evidence shows a high-volume automated password-guessing pattern targeting multiple account names, with the `ADMINISTRATOR` account receiving most of the attempts. However, no successful non-system logon was identified.
 
 Based on the available evidence, I would classify this as **suspected automated password-guessing activity with no confirmed successful authentication**.
+
+#### Data Limitation
+
+I also reviewed the available Event ID 4625 records for additional authentication details such as failure reason, status, and substatus.
+
+The available dataset did not provide enough failure-reason information to determine the exact reason each authentication attempt was rejected.
+
+Because of this limitation, I did not make assumptions about the specific passwords, authentication errors, or exact technique used.
