@@ -240,3 +240,28 @@ The `NT AUTHORITY\SYSTEM` account is a Windows system account, so these events s
 #### Next Question
 
 Were there any successful logons for the specific accounts targeted during the failed authentication activity?
+
+#### Additional Validation
+
+To determine whether any non-system account successfully authenticated, I excluded `NT AUTHORITY` accounts from the successful logon events.
+
+```kusto
+SecurityEvent
+| where Computer == "SOC-FW-RDP"
+| where EventID == 4624
+| where Account !contains "NT AUTHORITY"
+| project TimeGenerated, Account, LogonType, AuthenticationPackageName
+| sort by TimeGenerated asc
+```
+
+The query returned no results within the seven-day investigation period.
+
+![Non-System Successful Logons](screenshoots/08-non-system-successful-logons.png)
+
+#### Conclusion
+
+I did not identify a successful user authentication following the suspicious failed logon activity in the available `SecurityEvent` data.
+
+The evidence shows a high-volume automated password-guessing pattern targeting multiple account names, with the `ADMINISTRATOR` account receiving most of the attempts. However, no successful non-system logon was identified.
+
+Based on the available evidence, I would classify this as **suspected automated password-guessing activity with no confirmed successful authentication**.
