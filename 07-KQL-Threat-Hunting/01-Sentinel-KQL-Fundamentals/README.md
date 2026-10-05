@@ -101,3 +101,18 @@ I needed to determine where these authentication attempts originated.
 #### Next Question
 
 Which source IP addresses generated the failed logon attempts against `SOC-FW-RDP`?
+
+```kusto
+SecurityEvent
+| where EventID == 4625
+| where Computer == "SOC-FW-RDP"
+| project TimeGenerated, Account, ClientAddress, ClientIPAddress,
+          IpAddress, RemoteIpAddress, Workstation, WorkstationName
+| take 20
+```
+The query above asks Sentinel:
+  - For these failed logons, show me every likely field that might identify where the connection come from.
+![Failed Logons by Account](screenshoots/04-failed-logons-by-IP.png)
+
+The search did not provide me with any information that confirms where the connections were coming from, which means that the dataset doesn't provide source-network information for these 4625 records. Thus, we have a telemetry limitation, and I switched my focus to pivoting on other evidence, such as #### timing, logon type, failure reason/status, and whether any attempts eventually succeeded.
+
