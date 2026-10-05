@@ -112,7 +112,44 @@ SecurityEvent
 ```
 The query above asks Sentinel:
   - For these failed logons, show me every likely field that might identify where the connection come from.
-![Failed Logons by Account](screenshoots/04-failed-logons-by-IP.png)
+![Failed Logons by IP Address](screenshoots/04-failed-logons-by-IP.png)
 
-The search did not provide me with any information that confirms where the connections were coming from, which means that the dataset doesn't provide source-network information for these 4625 records. Thus, we have a telemetry limitation, and I switched my focus to pivoting on other evidence, such as #### timing, logon type, failure reason/status, and whether any attempts eventually succeeded.
+The search did not provide me with any information that confirms where the connections were coming from, which means that the dataset doesn't provide source-network information for these 4625 records. Thus, we have a telemetry limitation, and I switched my focus to pivoting on other evidence, such as timing, logon type, failure reason/status, and whether any attempts eventually succeeded.
 
+### Investigation 3: Analyzing Failed Logon Timing
+
+#### Security Question
+
+Were the failed logon events on `SOC-FW-RDP` spread over time, or were they concentrated within a short period?
+
+#### KQL Query
+
+```kusto
+SecurityEvent
+| where EventID == 4625
+| where Computer == "SOC-FW-RDP"
+| summarize FailedLogins=count(), Accounts=dcount(Account) by TimeGenerated
+| sort by FailedLogins desc
+| take 20
+```
+![Failed Logon Timing](screenshoots/05-failed-logon-timing.png)
+
+#### Findings
+
+The failed logon activity was highly concentrated around 04:14 UTC on September 29, 2026. 
+Several timestamps contained hundreds of failed authentication events. For example:
+- 04:14:20.150 — 812 failed logons involving 45 account names
+- 04:14:23.084 — 741 failed logons involving 30 account names
+- 04:14:19.916 — 658 failed logons involving 28 account names
+- 04:14:16.401 — 648 failed logons involving 25 account names
+- 04:14:21.253 — 630 failed logons involving 78 account names
+
+#### Analyst Notes
+
+The high number of failed logons occurring within seconds suggests that the activity may have been automated rather than caused by normal users entering incorrect passwords.
+
+At this stage, I did not classify the activity as a confirmed brute-force or password-spraying attack. More investigation is needed to determine which accounts were targeted and whether the authentication pattern matches a specific attack technique.
+
+#### Next Step
+
+Investigate the accounts targeted by the failed authentication attempts to determine whether the activity focused on one account or was distributed across many accounts.
