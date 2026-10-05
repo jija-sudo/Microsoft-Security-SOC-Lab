@@ -153,3 +153,50 @@ At this stage, I did not classify the activity as a confirmed brute-force or pas
 #### Next Step
 
 Investigate the accounts targeted by the failed authentication attempts to determine whether the activity focused on one account or was distributed across many accounts.
+
+### Investigation 4: Identifying the Most Targeted Accounts
+
+#### Security Question
+
+Which accounts were targeted most frequently during the failed logon activity on `SOC-FW-RDP`?
+
+#### KQL Query
+
+```kusto
+SecurityEvent
+| where EventID == 4625
+| where Computer == "SOC-FW-RDP"
+| summarize FailedLogins=count() by Account
+| sort by FailedLogins desc
+| take 20
+```
+
+#### Findings
+
+The results showed that the `\ADMINISTRATOR` account received 9,997 failed logon attempts, significantly more than any other account.
+
+Other attempted account names included:
+
+- `\ADMIN` — 503
+- `\USER` — 269
+- `\TEST` — 263
+- `\SERVER` — 240
+- `\administrator` — 124
+- `\SYMANTEC` — 33
+- `\ADMINISTRADOR` — 32
+- `\VEEAM` — 30
+- `\BACKUP` — 27
+
+![Targeted Accounts](screenshoots/06-targeted-accounts.png)
+
+#### Analyst Notes
+
+The activity was heavily focused on the `\ADMINISTRATOR` account. I also observed attempts against several generic, administrative, service-related, and backup-related account names.
+
+Combined with the high number of failed logons occurring within seconds, this pattern suggests automated password-guessing activity.
+
+However, I did not classify the event as a confirmed compromise at this stage because failed authentication alone does not prove that an attacker successfully accessed the system.
+
+#### Next Question
+
+Did any of the targeted accounts successfully authenticate after the failed logon attempts?
