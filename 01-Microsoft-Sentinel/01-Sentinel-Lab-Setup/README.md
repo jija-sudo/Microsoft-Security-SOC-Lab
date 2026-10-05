@@ -53,6 +53,16 @@ I configured Log Analytics workspaces to support log collection and analysis in 
 
 Log Analytics provides the workspace where you can store and query security telemetry using KQL. Microsoft Sentinel uses a Log Analytics workspace to analyze security data for monitoring, detection, threat hunting, and investigation.
 
+### 3. Microsoft Sentinel
+
+I enabled Microsoft Sentinel on my Log Analytics workspace and used `lokoko-LAW` as one of the workspaces in my Microsoft Security lab.
+
+![Microsoft Sentinel Workspace](screenshoots/03-microsoft-sentinel-workspace.png)
+
+Microsoft Sentinel provides the SIEM and security operations capabilities for my lab. From Sentinel, I can work with data connectors, analytics rules, automation, watchlists, and other security monitoring features.
+
+This environment gives me a place to practice SOC tasks such as log analysis, KQL queries, threat hunting, detection, and incident investigation.
+
 ## What I Learned
 
 This lab helped me understand how Microsoft Sentinel collects security data 
