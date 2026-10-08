@@ -29,7 +29,8 @@ This query counts failed logons for each account and displays the ten accounts w
 - ##### Other accounts had smaller counts.
    
 These accounts would be useful starting points for investigation. However, a high number of failed logons alone does not prove an attack or account compromise.
-Screenshot: Add the saved account bar chart here.
+
+![Microsoft Sentinel Workspace](screenshoots/04-sentinel-securityevent-sources.png)
 
 ### Panel 2: Failed Logons Over Time
 
@@ -42,7 +43,8 @@ SecurityEvent
 ```
 The #### bin(TimeGenerated, 1h) function groups events into one-hour periods.
 Finding: The chart displayed a single point representing approximately 18,200 failed logons. All returned events fell within one hourly group, so the chart could not show a trend across multiple hours.
-Screenshot: Add the failed-logon time chart here.
+
+![Microsoft Sentinel Workspace](screenshoots/04-sentinel-securityevent-sources.png)
 
 ### Panel 3: Successful vs Failed Logons
 
@@ -55,13 +57,14 @@ SecurityEvent
 ```
 This query labels Event ID 4624 as a successful logon and Event ID 4625 as a failed logon. It then counts each category.
 #### Finding: Sentinel displayed a donut chart with approximately 18,300 total logon events. Compared with the failed-logon total, failures represented most of the selected events. The displayed totals were rounded, so I did not calculate an exact percentage.
-Screenshot: Add the successful-versus-failed logon chart here.
+
+![Microsoft Sentinel Workspace](screenshoots/04-sentinel-securityevent-sources.png)
 
 #### Troubleshooting
 
 ##### Selecting the Correct Workspace
 
-The query returned data in Advanced Hunting, but the initial workbook query did not return useful results. After comparing the selected workspaces, I changed the custom panel’s query resource to lokoko-LAW, and the data appeared.
+The query returned data in Advanced Hunting, but the initial workbook query returned no useful results. After comparing the selected workspaces, I changed the custom panel’s query resource to lokoko-LAW, and the data appeared. 
 This taught me to check the query’s workspace before assuming the KQL is wrong.
 
 ##### Checking Which Fields Contained Data
@@ -91,7 +94,7 @@ The bar chart was saved in Top 10 Accounts – Failed Logons. The time chart and
 
 ### Reflection
 
-I learned that a field can exist in a table but still be empty in the records I am analyzing. Checking sample records helped me choose a useful field instead of repeatedly changing the query without understanding the data.
+I learned that a field can exist in a table but still be empty in the records I am analyzing. Checking sample records helped me choose a useful field instead of repeatedly changing the query without understanding the data. 
 I also learned to separate observations from conclusions.
 
-The training logs showed many failed logons, but I would need more evidence—such as source information and related successful logons—before concluding that an account was attacked or compromised.
+The training logs showed many failed logons, but I needed more evidence—such as source information and related successful logons—before concluding an account was attacked or compromised.
