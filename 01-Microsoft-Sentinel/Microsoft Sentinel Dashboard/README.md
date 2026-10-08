@@ -30,7 +30,7 @@ This query counts failed logons for each account and displays the ten accounts w
    
 These accounts would be useful starting points for investigation. However, a high number of failed logons alone does not prove an attack or account compromise.
 
-![Microsoft Sentinel Workspace](screenshoots/04-sentinel-securityevent-sources.png)
+![Microsoft Sentinel Dashboard](<Screenshots/Top_10_Accounts—Failed Logons.png>)
 
 ### Panel 2: Failed Logons Over Time
 
@@ -44,7 +44,7 @@ SecurityEvent
 The #### bin(TimeGenerated, 1h) function groups events into one-hour periods.
 Finding: The chart displayed a single point representing approximately 18,200 failed logons. All returned events fell within one hourly group, so the chart could not show a trend across multiple hours.
 
-![Microsoft Sentinel Workspace](screenshoots/04-sentinel-securityevent-sources.png)
+![Microsoft Sentinel Dashboard](<Screenshots/Top_10_Accounts—Failed Logons.png>)
 
 ### Panel 3: Successful vs Failed Logons
 
@@ -58,7 +58,7 @@ SecurityEvent
 This query labels Event ID 4624 as a successful logon and Event ID 4625 as a failed logon. It then counts each category.
 #### Finding: Sentinel displayed a donut chart with approximately 18,300 total logon events. Compared with the failed-logon total, failures represented most of the selected events. The displayed totals were rounded, so I did not calculate an exact percentage.
 
-![Microsoft Sentinel Workspace](screenshoots/04-sentinel-securityevent-sources.png)
+![Microsoft Sentinel Dashboard](<Screenshots/successful-vs-failed.png>)
 
 #### Troubleshooting
 
