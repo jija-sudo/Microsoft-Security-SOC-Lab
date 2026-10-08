@@ -49,7 +49,7 @@ I identified the test email and examined its details.
 
 **Observation:** The email was successfully delivered to the recipient's inbox.
 
-**Evidence:** Screenshot of Threat Explorer showing the email and sender information.
+![Explorer showing the email and sender information](/Screenshots/email-and-sender-info.png)
 
 ### Step 2: Investigate URL Click Activity
 
@@ -66,7 +66,7 @@ I opened the URL clicks section in Threat Explorer to determine whether the reci
 
 The recorded URL was a Google website. The available evidence did not indicate that the URL was malicious.
 
-**Evidence:** Screenshot of URL clicks and the URL click details.
+![Screenshot of URL clicks](/Screenshots/url-click.png)
 
 ### Step 3: Analyze the Email Timeline
 
@@ -82,7 +82,7 @@ I opened the Email Entity page and reviewed the timeline to understand the seque
 
 **Observation:** The email was delivered, a URL click was recorded, and the user subsequently submitted the email for additional analysis.
 
-**Evidence:** Screenshot of the Email Entity timeline.
+![Email Entity timeline](/Screenshots/email-entity-timeline.png)
 
 ### Step 4: Examine Email Authentication
 
@@ -99,7 +99,7 @@ I reviewed the authentication information to determine whether the email passed 
 
 However, passing authentication does not guarantee that an email is safe. An attacker can send phishing emails from a domain they control.
 
-**Evidence:** Screenshot of the authentication results.
+![Authentication Results](/Screenshots/authentication-results.png)
 
 ### Step 5: Review Threat Detection Details
 
@@ -119,6 +119,8 @@ I examined the Analysis tab to identify any threats associated with the email.
 
 **Evidence:** Screenshot of the Analysis tab and threat detection details.
 
+![Analysis and Threat detection](/Screenshots/Analysis-and-Threat-detection.png)
+
 ### Step 6: Check for Security Alerts
 
 I searched Microsoft Defender's Alerts page for a matching alert related to the test email.
@@ -126,8 +128,6 @@ I searched Microsoft Defender's Alerts page for a matching alert related to the 
 **Result:** No matching alert was found.
 
 This means I could not confirm a corresponding security alert through the search performed. It does not prove that no alert exists elsewhere or outside the selected search range.
-
-**Evidence:** Screenshot of the alert search results, if available.
 
 ## 5. Final Investigation Findings
 
